@@ -3,16 +3,22 @@
 import re
 import pickle
 
-
+# 查看性别
 def sex(ID):
-    # 查看性别
-    if int(ID[-2]) % 2 == 0:
-        return '女'
-    else:
-        return '男'
+    if len(ID) == 18:
+        if int(ID[-2]) % 2 == 0:
+            check = '女'
+        else:
+            check = '男'
+    elif len(ID)  == 15:
+        if int(ID[-1]) %2 == 0:
+            check = '女'
+        else:
+            check = '男'
+    return check  
 
+# 地区校验
 def checkCity(ID):
-    # 地区校验
     ID_add = ID[0:6]
     ID_add1 = ID[0:2] + '0000'
     ID_add2 = ID[0:4] + '00'
@@ -24,8 +30,8 @@ def checkCity(ID):
         check = '身份证地区非法'
     return check
 
+# 出生日期以及字符的合法性校验
 def checkDate(ID):
-    # 出生日期的合法性检查
     if (len(ID) == 15):
         if ((int(ID[6:8]) + 1900) % 4 == 0 or ((int(ID[6:8]) + 1900) % 100 == 0 and (int(ID[6:8]) + 1900) % 4 == 0)):
             ereg = re.compile(
@@ -36,7 +42,7 @@ def checkDate(ID):
         if (re.match(ereg, ID)):
             check = '出生日期:19' + ID[6:8] + '年' + ID[8:10] + '月' + ID[10:12] + '日'
         else:
-            check = '身份证号码日期超出范围'
+            check = '身份证号码日期超出范围或者存在非法字符'
     elif (len(ID) == 18):
         if (int(ID[6:10]) % 4 == 0 or (int(ID[6:10]) % 100 == 0 and int(ID[6:10]) % 4 == 0)):
             ereg = re.compile(
@@ -47,17 +53,17 @@ def checkDate(ID):
         if (re.match(ereg, ID)):
             check = '出生日期:' + ID[6:10] + '年' + ID[10:12] + '月' + ID[12:14] + '日'
         else:
-            check = '身份证号码日期超出范围'
+            check = '身份证号码日期超出范围或者存在非法字符'
     return check
 
+#身份证长度校验
 def checkLen(ID):
-    #身份证长度校验
     if (len(ID) != 15 or 18):
          check = '身份证号码位数不对'
     return check
 
+# 计算校验位
 def checkByte(ID):
-    # 计算校验位
     if (len(ID) == 18):
       ID_list = list(ID)
       S = (int(ID_list[0]) + int(ID_list[10])) * 7 + (int(ID_list[1]) + int(ID_list[11])) * 9 + \
@@ -73,6 +79,8 @@ def checkByte(ID):
       else:
         check = '身份证校验错误'
       return check
+
+
 
 
 
