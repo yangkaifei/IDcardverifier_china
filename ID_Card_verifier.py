@@ -4,7 +4,7 @@ import re
 import pickle
 
 # 查看性别
-def sex(ID):
+def checkSex(ID):
     if len(ID) == 18:
         if int(ID[-2]) % 2 == 0:
             check = '女'
