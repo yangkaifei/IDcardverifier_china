@@ -7,14 +7,14 @@ import pickle
 def checkSex(ID):
     if len(ID) == 18:
         if int(ID[-2]) % 2 == 0:
-            check = '女'
+            check = 'female'
         else:
-            check = '男'
+            check = 'male'
     elif len(ID)  == 15:
         if int(ID[-1]) %2 == 0:
-            check = '女'
+            check = 'female'
         else:
-            check = '男'
+            check = 'male'
     return check  
 
 # 地区校验
@@ -27,7 +27,7 @@ def checkCity(ID):
     if ID_add in city:
         check = '发证地区：' + city[ID_add1] + city[ID_add2] + city[ID_add]
     else:
-        check = '身份证地区非法'
+        check = 'region incorrect'
     return check
 
 # 出生日期以及字符的合法性校验
@@ -42,7 +42,7 @@ def checkDate(ID):
         if (re.match(ereg, ID)):
             check = '出生日期:19' + ID[6:8] + '年' + ID[8:10] + '月' + ID[10:12] + '日'
         else:
-            check = '身份证号码日期超出范围或者存在非法字符'
+            check = 'date incorrect'
     elif (len(ID) == 18):
         if (int(ID[6:10]) % 4 == 0 or (int(ID[6:10]) % 100 == 0 and int(ID[6:10]) % 4 == 0)):
             ereg = re.compile(
@@ -53,13 +53,13 @@ def checkDate(ID):
         if (re.match(ereg, ID)):
             check = '出生日期:' + ID[6:10] + '年' + ID[10:12] + '月' + ID[12:14] + '日'
         else:
-            check = '身份证号码日期超出范围或者存在非法字符'
+            check = 'date incorrect'
     return check
 
 #身份证长度校验
 def checkLen(ID):
     if (len(ID) != 15 or 18):
-         check = '身份证号码位数不对'
+         check = 'long incorrect'
     return check
 
 # 计算校验位
@@ -75,9 +75,9 @@ def checkByte(ID):
       JYM = "10X98765432"
       M = JYM[Y]  # 判断校验位
       if (M == ID_list[17]):  # 检测ID的校验位
-        check = '身份证校验正确'
+        check = 'correct'
       else:
-        check = '身份证校验错误'
+        check = 'verify incorrect'
       return check
 
 
